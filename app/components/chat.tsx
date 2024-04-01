@@ -390,6 +390,7 @@ function useScrollToBottom(
   // for auto-scroll
 
   const [autoScroll, setAutoScroll] = useState(true);
+
   function scrollDomToBottom() {
     const dom = scrollRef.current;
     if (dom) {
@@ -431,6 +432,7 @@ export function ChatActions(props: {
 
   // switch themes
   const theme = config.theme;
+
   function nextTheme() {
     const themes = [Theme.Auto, Theme.Light, Theme.Dark];
     const themeIndex = themes.indexOf(theme);
@@ -981,6 +983,7 @@ function _Chat() {
   const [msgRenderIndex, _setMsgRenderIndex] = useState(
     Math.max(0, renderMessages.length - CHAT_PAGE_SIZE),
   );
+
   function setMsgRenderIndex(newIndex: number) {
     newIndex = Math.min(renderMessages.length - CHAT_PAGE_SIZE, newIndex);
     newIndex = Math.max(0, newIndex);
@@ -1016,6 +1019,7 @@ function _Chat() {
     setHitBottom(isHitBottom);
     setAutoScroll(isHitBottom);
   };
+
   function scrollToBottom() {
     setMsgRenderIndex(renderMessages.length - CHAT_PAGE_SIZE);
     scrollDomToBottom();
@@ -1100,11 +1104,13 @@ function _Chat() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   const handlePaste = useCallback(
     async (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
       const currentModel = chatStore.currentSession().mask.modelConfig.model;
-      if(!isVisionModel(currentModel)){return;}
+      if (!isVisionModel(currentModel)) {
+        return;
+      }
       const items = (event.clipboardData || window.clipboardData).items;
       for (const item of items) {
         if (item.kind === "file" && item.type.startsWith("image/")) {
@@ -1529,7 +1535,33 @@ function _Chat() {
           />
         </label>
       </div>
-
+      <div
+        style={{
+          textAlign: "center",
+          color: "#999",
+          fontSize: "13px",
+          marginBottom: "0.8%",
+        }}
+      >
+        <a
+          href="https://beian.miit.gov.cn/"
+          target="_blank"
+          style={{ textDecoration: "none", color: "#999" }}
+        >
+          渝ICP备2022007661号-2
+        </a>
+        <img
+          src="https://drive.dandaner.cn/d/blog/beian/beian.png"
+          alt="备案图片"
+        />
+        <a
+          href="https://beian.mps.gov.cn/#/query/webSearch"
+          target="_blank"
+          style={{ textDecoration: "none", color: "#999" }}
+        >
+          渝公网安备50011802010706号
+        </a>
+      </div>
       {showExport && (
         <ExportMessageModal onClose={() => setShowExport(false)} />
       )}

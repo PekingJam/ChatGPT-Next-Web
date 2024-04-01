@@ -42,18 +42,18 @@ async function fetchCN() {
 async function fetchEN() {
   console.log("[Fetch] fetching en prompts...");
   try {
-    // const raw = await (await fetch(EN_URL)).text();
-    const response = await Promise.race([fetch(EN_URL), timeoutPromise(5000)]);
-    const raw = await response.text();
-    return raw
-      .split("\n")
-      .slice(1)
-      .map((v) =>
-        v
-          .split('","')
-          .map((v) => v.replace(/^"|"$/g, "").replaceAll('""', '"'))
-          .filter((v) => v[0] && v[1]),
-      );
+    // const response = await Promise.race([fetch(EN_URL), timeoutPromise(5000)]);
+    // const raw = await response.text();
+    // return raw
+    //   .split("\n")
+    //   .slice(1)
+    //   .map((v) =>
+    //     v
+    //       .split('","')
+    //       .map((v) => v.replace(/^"|"$/g, "").replaceAll('""', '"'))
+    //       .filter((v) => v[0] && v[1]),
+    //   );
+    return []
   } catch (error) {
     console.error("[Fetch] failed to fetch en prompts", error);
     return [];
